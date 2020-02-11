@@ -1,10 +1,22 @@
 <div class="container">
-  <header><img src="images/corneal-small.png" class="img-responsive main-image"></header>
+  <header><img src="images/chef-logo.png" class="img-responsive main-image"></header>
   <div class="col-md-8 col-md-offset-2">
     <h2>Chefs Kitchen</h2>
 
     <div class="content">
       <p>Welcome to Chefs Kitchen. A place where all chefs are welcome to share thier recipes!</p>
+      <p>Please Sign Up or Login below:</p>
+      <br>
+      <% if logged_in? %>
+        <a href="/recipes/new">Create Recipe</a>
+        <br>
+        <a href="/logout">Log Out</a>
+        <p>Welcome Chef <%= current_user.username %></p>
+      <% else %>
+        <a href="/signup">Sign Up</a>
+        <br>
+        <a href="/login">Login</a>
+        <% end %>
     </div>
 
     <div class="sidebar">
