@@ -19,4 +19,22 @@ class ChefsController < ApplicationController
         end
     end
 
+    get '/login' do
+        if !logged_in?
+            erb :'chefs/login'
+        else
+            redirect "/recipes"
+        end
+    end
+
+    post '/login' do
+        chef = Chef.find_by(username: :params[:username])
+        if chef && chef.authenticate(params[:password])
+            session[:user_id] = chef.id
+            redirect "/recipes"
+        else
+            redirect '/signup'
+        end
+    end
+
 end
