@@ -1,0 +1,15 @@
+<h1>Welcome Chef <%= current_user.username %></h1>
+<br>
+
+<h2>Recipes</h2>
+<% @recipes.each do |recipe| %>
+    <div>
+    <%= recipe.content %>
+    </div>
+<% end %>
+<br>
+
+<a href="/recipes/new">Create New Recipe</a>
+<br>
+
+<a href="/">Home</a>

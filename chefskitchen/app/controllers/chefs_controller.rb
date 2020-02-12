@@ -2,7 +2,8 @@ class ChefsController < ApplicationController
     
     get '/signup' do
         if !logged_in?
-            erb :'chefs/create_chef', locals: {message: "Please sign up if you do not have an account."}
+            erb :'chefs/create_chef'
+            # flash[:error] = "Please sign up if you do not have an account."
         else
             redirect "/recipes"
         end
@@ -28,14 +29,21 @@ class ChefsController < ApplicationController
     end
 
     post '/login' do
-        @chef = Chef.find_by(:username => params[:username])
-        if @chef && @chef.authenticate(params[:password])
-            session[:user_id] = @chef.id
+        chef = Chef.find_by(:username => params[:username])
+        if chef && chef.authenticate(params[:password])
+            session[:user_id] = chef.id
             redirect "/recipes"
         elsif
             (params[:username]).empty? || (params[:password]).empty?
             flash[:error] = "Username or Password is not filled in."
             redirect "/login"
+        end
+    end
+
+    get '/logout' do
+        if logged_in?
+            session.destroy
+            redirect '/'
         end
     end
 

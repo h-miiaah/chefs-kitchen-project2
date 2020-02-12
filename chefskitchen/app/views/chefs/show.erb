@@ -1,0 +1,7 @@
+<h3><%= @chef.username %>'s Recipes</h3>
+
+<% @chef.recipes.each do |recipe| %>
+    <div>
+    <%= recipe.content %>
+    </div>
+<% end %>
