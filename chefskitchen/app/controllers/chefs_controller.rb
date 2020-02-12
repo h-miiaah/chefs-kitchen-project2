@@ -28,12 +28,14 @@ class ChefsController < ApplicationController
     end
 
     post '/login' do
-        chef = Chef.find_by(username: :params[:username])
-        if chef && chef.authenticate(params[:password])
-            session[:user_id] = chef.id
+        @chef = Chef.find_by(:username => params[:username])
+        if @chef && @chef.authenticate(params[:password])
+            session[:user_id] = @chef.id
             redirect "/recipes"
-        else
-            redirect '/signup'
+        elsif
+            (params[:username]).empty? || (params[:password]).empty?
+            flash[:error] = "Username or Password is not filled in."
+            redirect "/login"
         end
     end
 
